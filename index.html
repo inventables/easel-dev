@@ -140,6 +140,11 @@
 <p>Easel passes 2 additional arguments to your app: a <code>success</code> callback and a <code>failure</code> callback.</p>
 
 <p>If your app is able to function properly and produce output, it should invoke the <code>success</code> callback, passing an array of volumes having the same structure as above. The only wrinkle is with how to handle the update model--whether you want to add, replace, or remove volumes from the existing design.</p>
+<p>
+<strong>Add volumes:</strong> If you want to add new volumes to the design, leave the "id" field of the volumes blank in your response
+<strong>Replace volumes:</strong> If you want to replace a volume, pass the "id" of the existing volume with its new data
+<strong>Remove volumes:</strong> If you want to remove a volume, pass the "id" of the existing volume with no shape or cut data
+</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/inventables">inventables</a></p>
