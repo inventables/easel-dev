@@ -1,0 +1,8 @@
+# BUILD SETTINGS
+markdown: kramdown
+
+kramdown:
+  input: GFM
+
+gems:
+  - github-pages
