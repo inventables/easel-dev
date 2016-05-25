@@ -106,7 +106,7 @@ Where each point in the array has the following shape:
 
 Points will have handles if the path curves around them (on one side or the other). The handles represent the (relative) locations of bezier control points. In the v2 apps API, Easel provides functions to map from an Easel path to an SVG path.
 
-# [<span aria-hidden="true" class="octicon octicon-link"></span>](#responses)Responses
+<h1 id="responses">Responses</h1>
 
 Easel passes 2 additional arguments to your app: a `success` callback and a `failure` callback.
 

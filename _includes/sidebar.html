@@ -3,6 +3,12 @@
   <h1>Easel Developer Docs</h1>
   <h4>API version 1.0</h4>
 
+  <ol class="nav-steps">
+    {% for item in site.data.navigation.nav %}
+      <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ol>
+
   <p class="view"><a href="https://github.com/inventables/easel-dev">View this Project on GitHub</a></p>
 
   <p>This project is maintained by <a href="https://github.com/inventables">Inventables</a>.</p>
