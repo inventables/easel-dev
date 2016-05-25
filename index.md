@@ -2,9 +2,23 @@
 layout: default
 ---
 
-<h1>
-  <a id="executor-function" class="anchor" href="#executor-function" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Executor Function
-</h1>
+# <a name="overview"></a> Overview
+
+Version 2.0 of the Easel Developer API extends a number of a capabilites to apps that were not present in version 1.0:
+
+- Apps receive information describing the entire state of the user's design
+- Apps receive information about the material and bit(s) in use in the project
+- Apps always receive information about which objects (if any) are selected in the design when the app is launched
+- Apps can specify the the outline style (inside, outside, on-path) of objects
+- Apps may remove objects from the design or modify objects of the design in-place
+
+In version 2.0, apps work directly with the same object model that Easel works with:
+
+- `volume` objects - for manipulating objects in the design
+- `material` objects - for working with the active material
+- `bit` objects - for working with the active bit(s)
+
+# <a name="executor-function"></a> Executor Function
 
 The executor function takes 3 arguments.
 
@@ -106,7 +120,7 @@ Where each point in the array has the following shape:
 
 Points will have handles if the path curves around them (on one side or the other). The handles represent the (relative) locations of bezier control points. In the v2 apps API, Easel provides functions to map from an Easel path to an SVG path.
 
-<h1 id="responses">Responses</h1>
+# <a name="responses"></a> Responses
 
 Easel passes 2 additional arguments to your app: a `success` callback and a `failure` callback.
 
