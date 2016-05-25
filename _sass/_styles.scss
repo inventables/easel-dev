@@ -55,8 +55,8 @@
 }
 
 body {
-  background-color: #fff;
-  padding:50px;
+  background-color: #2f4458;
+  padding:30px;
   font: 14px/1.5 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#727272;
   font-weight:400;
@@ -108,7 +108,8 @@ a:hover small {
 }
 
 .wrapper {
-  width:860px;
+  width: 100%;
+  min-width:860px;
   margin:0 auto;
 }
 
@@ -157,14 +158,44 @@ img {
   max-width:100%;
 }
 
-header {
+.sidebar {
   width:270px;
   float:left;
   position:fixed;
   -webkit-font-smoothing:subpixel-antialiased;
+  color: #c8c8c8;
+
+  .easel-logo {
+    width: 80px;
+    margin: 0 auto 20px;
+    display: block;
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 2px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  h4 {
+    color: #fff;
+    font-weight: normal;
+  }
+
+  a {
+    color: #4990e2;
+    text-decoration: underline;
+    transition: color .3s ease;
+
+    &:hover {
+      color: #fff;
+    }
+  }
 }
 
-header ul {
+.sidebar ul {
   list-style:none;
   height:40px;
   padding:0;
@@ -174,22 +205,22 @@ header ul {
   width:270px;
 }
 
-header li {
+.sidebar li {
   width:89px;
   float:left;
   border-right:1px solid #e0e0e0;
   height:40px;
 }
 
-header li:first-child a {
+.sidebar li:first-child a {
   border-radius:5px 0 0 5px;
 }
 
-header li:last-child a {
+.sidebar li:last-child a {
   border-radius:0 5px 5px 0;
 }
 
-header ul a {
+.sidebar ul a {
   line-height:1;
   font-size:11px;
   color:#999;
@@ -199,11 +230,11 @@ header ul a {
   height:34px;
 }
 
-header ul a:hover {
+.sidebar ul a:hover {
   color:#999;
 }
 
-header ul a:active {
+.sidebar ul a:active {
   background-color:#f0f0f0;
 }
 
@@ -212,21 +243,24 @@ strong {
   font-weight:700;
 }
 
-header ul li + li + li {
+.sidebar ul li + li + li {
   border-right:none;
   width:89px;
 }
 
-header ul a strong {
+.sidebar ul a strong {
   font-size:14px;
   display:block;
   color:#222;
 }
 
 section {
-  width:500px;
-  float:right;
-  padding-bottom:50px;
+  width: 700px;
+  left: 300px;
+  position: relative;
+  padding: 40px;
+  background: #fff;
+  box-shadow: 2px 2px 4px rgba(0,0,0,.4);
 }
 
 small {
@@ -255,13 +289,13 @@ footer {
     margin:0;
   }
 
-  header, section, footer {
+  .sidebar, section, footer {
     float:none;
     position:static;
     width:auto;
   }
 
-  header {
+  .sidebar {
     padding-right:320px;
   }
 
@@ -272,11 +306,11 @@ footer {
     margin:0 0 20px;
   }
 
-  header a small {
+  .sidebar a small {
     display:inline;
   }
 
-  header ul {
+  .sidebar ul {
     position:absolute;
     right:50px;
     top:52px;
@@ -288,11 +322,11 @@ footer {
     word-wrap:break-word;
   }
 
-  header {
+  .sidebar {
     padding:0;
   }
 
-  header ul, header p.view {
+  .sidebar ul, .sidebar p.view {
     position:static;
   }
 
@@ -306,11 +340,11 @@ footer {
     padding:15px;
   }
 
-  header ul {
+  .sidebar ul {
     width:99%;
   }
 
-  header li, header ul li + li + li {
+  .sidebar li, .sidebar ul li + li + li {
     width:33%;
   }
 }
