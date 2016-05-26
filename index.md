@@ -4,8 +4,7 @@ layout: default
 
 # <a name="overview"></a> Overview
 
-At a high level, apps make it easier for users to make things. They do this by providing `properties` (e.g., sliders, input boxes, dropdowns) that the user may manipulate. Each time the user changes one of these `properties`, your app's `executor` function will be invoked. Easel will provide the new values of all the properties, along with several other data elements representing context of the user's project. Your app will use this data to create new design objects, or to modify existing ones.
-
+At a high level, apps make it easier for users to make things. They do this by providing `properties` (e.g., sliders, input boxes, dropdowns) that the user may manipulate. Each time the user changes one of these `properties`, your app's `executor` function will be invoked. Easel will provide the new values of all the properties, along with several other data elements representing the context of the user's project. Your app will use this data to create new design objects, or to modify existing ones.
 
 # <a name="volumes"></a> Volumes
 
@@ -119,7 +118,7 @@ The `volumes` property represents the current state of the user's entire design 
 
 Basically, in terms of cut depth, each volume in the array overrides all overlapping volumes that came before it.
 
-Properties that are shared across all volumes are:
+Properties that are shared across all volumes **except `lines`** are:
 
     volume:
       shape:
@@ -142,39 +141,68 @@ Properties that are shared across all volumes are:
         tabLength: Number // Length of tabs in inches
         tabs: Array // Objects with a shape of {center: {x: Number, y: Number}} representing the center location of the tabs
 
-In addition, shapes often have some properties specific to their type:
+**Volumes of type `line` do not have a `center`, `width`, `height`, or `rotation`.**
 
-Polygon (including Triangles)
+In addition to the shared properties, shapes often have some properties specific to their type:
 
-    shape:
-      points: Array
+**Polygon** (including Triangles)
 
-Where each point in the array has the following shape:
-
-    {
-      x: Number // Horizontal position of point
-      y: Number // Vertical position of point
-    }
-
-Path
-
-    shape:
-      points: Array
+```
+shape:
+  points: Array
+```
 
 Where each point in the array has the following shape:
 
-    {
-      x: Number // Horizontal position of point
-      y: Number // Vertical position of point
-      lh: // Optional "left handle"
-        x: Number // Horizontal position of left handle RELATIVE to the point
-        y: Number // Vertical position of left handle RELATIVE to the point
-      rh: // Optional "right handle"
-        x: Number // Horizontal position of right handle RELATIVE TO THE POINT
-        y: Number // Vertical position of right handle RELATIVE TO THE POINT
-    }
+```
+{
+  x: Number // Horizontal position of point
+  y: Number // Vertical position of point
+}
+```
+
+**Path**
+
+```
+shape:
+  points: Array
+```
+
+Where each point in the array has the following shape:
+
+```
+{
+  x: Number // Horizontal position of point
+  y: Number // Vertical position of point
+  lh: // Optional "left handle"
+    x: Number // Horizontal position of left handle RELATIVE to the point
+    y: Number // Vertical position of left handle RELATIVE to the point
+  rh: // Optional "right handle"
+    x: Number // Horizontal position of right handle RELATIVE TO THE POINT
+    y: Number // Vertical position of right handle RELATIVE TO THE POINT
+}
+```
 
 Points will have handles if the path curves around them (on one side or the other). The handles represent the (relative) locations of bezier control points. In the v2 apps API, Easel provides functions to map from an Easel path to an SVG path.
+
+**Text**
+
+```
+font: String     // Name of font, must be one of the fonts listed in Easel
+fontSize: Number // Must be 80
+text: String     // The content of the text object
+```
+
+**Line**
+
+```
+point1:
+  x: Number
+  y: Number
+point2:
+  x: Number
+  y: Number
+```
 
 # <a name="responses"></a> Responses
 
