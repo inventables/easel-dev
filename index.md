@@ -189,7 +189,6 @@ Points will have handles if the path curves around them (on one side or the othe
 
 ```
 font: String     // Name of font, must be one of the fonts listed in Easel
-fontSize: Number // Must be 80
 text: String     // The content of the text object
 ```
 
