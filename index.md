@@ -9,19 +9,19 @@ At a high level, apps make it easier for users to make things. They do this by p
 
 # <a name="volumes"></a> Volumes
 
-A core data type in the API is the `volume` object. A user's design in Easel is represented by a collection of `volume` objects. We call them `volumes` because they represent a three dimensional volume of material to be removed from the work piece. When a user places a circle on the canvas in Easel and assigns it a cut depth of say 0.25 inches, what the user is really saying is that they want to remove a cylinder of material.
+A core data type in the API is the `volume` object. A user's design in Easel is represented by a collection of `volume` objects. We call them `volumes` because they represent a three dimensional _volume_ of material to be removed from the work piece. When a user places a circle on the canvas in Easel and assigns it a cut depth of say 0.25 inches, what the user is really saying is that they want to remove a cylinder of material.
 
 ![Cylinder](/img/cylinder.png)
 
-Things get more interesting when the user places overlapping shapes on the canvas. Suppose the user drops a triangle with a cut depth of 0 inches somewhere on top of but not completely covering the circle. Easel tracks each volume separately, but the _order_ in which those shapes are place on top of each other is important. Because the triangle is on top of the circle, its cut depth _overrides_ the cut depth of the circle in the regions where the two shapes overlap. The result is that the two volumes will combine to carve a "pie" volume looking like this:
+Things get more interesting when the user places overlapping shapes on the canvas. Suppose the user drops a triangle with a cut depth of 0 inches somewhere on top of but not completely covering the circle. Easel tracks each volume separately, but the _order_ in which those shapes are placed on top of each other is important. Because the triangle is on top of the circle, its cut depth _overrides_ the cut depth of the circle in the regions where the two shapes overlap. The result is that the two volumes will combine to carve a "pie" volume looking like this:
 
 ![Pie](/img/pie.png)
 
-Your app will send `volume` objects back to Easel, which will tell Easel what objects to add, modify, or remove from the design.
+Your app will send `volume` objects back to Easel, telling Easel what objects to add, modify, or remove from the design.
 
 # <a name="anatomy"></a> Anatomy of an App
 
-Every Easel app is essentially a single javascript file that must export the following:
+Every Easel app is a single javascript file that must export the following:
 
 - A `properties` array
 - An `executor` function
