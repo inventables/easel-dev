@@ -4,28 +4,86 @@ layout: default
 
 # <a name="overview"></a> Overview
 
-Version 2.0 of the Easel Developer API extends a number of a capabilites to apps that were not present in version 1.0:
+At a high level, apps make it easier for users to make things. They do this by providing `properties` (e.g., sliders, input boxes, dropdowns) that the user may manipulate. Each time the user changes one of these `properties`, your app's `executor` function will be invoked. Easel will provide the new values of all the properties, along with several other data elements representing context of the user's project. Your app will use this data to create new design objects, or to modify existing ones.
 
-- Apps receive information describing the entire state of the user's design
-- Apps receive information about the material and bit(s) in use in the project
-- Apps always receive information about which objects (if any) are selected in the design when the app is launched
-- Apps can specify the the outline style (inside, outside, on-path) of objects
-- Apps may remove objects from the design or modify objects of the design in-place
 
-In version 2.0, apps work directly with the same object model that Easel works with:
+# <a name="volumes"></a> Volumes
 
-- `volume` objects - for manipulating objects in the design
-- `material` objects - for working with the active material
-- `bit` objects - for working with the active bit(s)
+A core data type in the API is the `volume` object. A user's design in Easel is represented by a collection of `volume` objects. We call them `volumes` because they represent a three dimensional volume of material to be removed from the work piece. When a user places a circle on the canvas in Easel and assigns it a cut depth of say 0.25 inches, what the user is really saying is that they want to remove a cylinder of material.
 
-# <a name="executor-function"></a> Executor Function
+![Cylinder](/img/cylinder.png)
 
-The executor function takes 3 arguments.
+Things get more interesting when the user places overlapping shapes on the canvas. Suppose the user drops a triangle with a cut depth of 0 inches somewhere on top of but not completely covering the circle. Easel tracks each volume separately, but the _order_ in which those shapes are place on top of each other is important. Because the triangle is on top of the circle, its cut depth _overrides_ the cut depth of the circle in the regions where the two shapes overlap. The result is that the two volumes will combine to carve a "pie" volume looking like this:
+
+![Pie](/img/pie.png)
+
+Your app will send `volume` objects back to Easel, which will tell Easel what objects to add, modify, or remove from the design.
+
+# <a name="anatomy"></a> Anatomy of an App
+
+Every Easel app is essentially a single javascript file that must export the following:
+
+- A `properties` array
+- An `executor` function
+
+## <a name="properties"></a> Properties
+
+When your app is first launched by the user, Easel will invoke it and look for the `properties` array that must be exposed. This array defines the properties that the user may manipulate when using your app. Each element in the array must be an object with the following attributes:
+
+```
+id: String   // Doubles as an identifier and the label to show next to the property
+type: String // One of 'range', 'boolean', 'file-input', 'text', 'list'
+```
+
+Each type of property carries its own specific attributes:
+
+**Range** (slider)
+
+```
+min: number   // The minimum value for the range
+max: number   // The maximum value for the range
+step: number  // How much to step the value by when dragging the slider
+value: number // The initial value
+```
+
+**Boolean** (checkbox)
+
+```
+value: boolean // The initial value
+```
+
+**File Picker**
+
+(No additional attributes)
+
+**Text** (input)
+
+```
+value: String // The initial value
+```
+
+**List** (select)
+
+```
+options: Array of Strings // The options for the dropdown list
+value: String // The initial value
+```
+
+
+## <a name="executor-function"></a> Executor Function
+
+Whenever the user changes the value of a property, Easel will invoke your app's `executor` function.  The signature of the `executor` function is:
+
+`function executor(args, success, failure)`
+
+The `args` parameter is an object structured as follows:
 
 
 ```
   args:
     params: Object // The user-defined parameters your app exposes, see below
+    volumes: Array // The objects defined in the design, ordered from back to front (see below for more)
+    selectedVolumeIds: Array // String ids of volumes currently selected in the design
     material:
       name: String // Name of active material
       textureUrl: String // URL of material thumbnail image
@@ -42,8 +100,6 @@ The executor function takes 3 arguments.
         id: String // Identifier for the detail bit
         width: Number // Width of the detail bit
         unit: String ("mm" or "in") // Units the width is expressed in
-    volumes: Array // The objects defined in the design, ordered from back to front (see below for more)
-    selectedVolumeIds: Array // String ids of volumes currently selected in the design
 ```
 
 
@@ -55,7 +111,7 @@ params:
   Height: Number
 ```
 
-A user's design is represented by `volume` objects in Easel. We call them `volumes` because they represent a three dimensional volume of material to be removed from the work piece. In the array given to your app, volumes are ordered from back to front as the user looks at their canvas. Therefore, the last volume is in front of all other volumes, and the first volume is behind all other volumes. Front-to-back ordering is important in Easel because it affects how volumes get carved out:
+The `volumes` property represents the current state of the user's entire design in the active project. In the array given to your app, volumes are ordered from back to front as the user looks at their canvas. Therefore, the last volume is in front of all other volumes, and the first volume is behind all other volumes. Front-to-back ordering is important in Easel because it affects how volumes get carved out:
 
 1.  A (filled) volume whose cut depth is shallower than a volume behind it will "lift" material out of the volume behind it
 2.  A volume whose cut depth is deeper than an object behind it will "push" material down into that shape
@@ -124,9 +180,11 @@ Points will have handles if the path curves around them (on one side or the othe
 
 Easel passes 2 additional arguments to your app: a `success` callback and a `failure` callback.
 
-If your app is able to function properly and produce output, it should invoke the `success` callback, passing an array of volumes having the same structure as above. The only wrinkle is with how to handle the update model--whether you want to add, replace, or remove volumes from the existing design.
+If your app is able to function properly and produce output, it should invoke the `success` callback, passing an array of volumes having the same structure as above. The only wrinkle is with handling the update model--whether you want to add, replace, or remove volumes from the existing design.
 
-- **Add volumes:** If you want to add new volumes to the design, leave the "id" field of the volumes blank in your response
-- **Replace volumes:** If you want to replace a volume, pass the "id" of the existing volume with its new data
-- **Remove volumes:** If you want to remove a volume, pass the "id" of the existing volume with no shape or cut data
+**Adding volumes:** If you want to add new volumes to the design, leave the "id" field of the volumes blank in your response
+
+**Replacing volumes:** If you want to replace a volume in the original design, pass the `id` of the existing volume with its new data
+
+**Removing volumes:** If you want to remove a volume from the original design, pass the `id` of the existing volume with no shape or cut data
 

@@ -1,6 +1,12 @@
 nav:
   - title: Overview
     url: '#overview'
+  - title: Volumes
+    url: '#volumes'
+  - title: Anatomy of an App
+    url: '#anatomy'
+  - title: Properties
+    url: '#properties'
   - title: Executor Function
     url: '#executor-function'
   - title: Responses
