@@ -215,3 +215,13 @@ If your app is able to function properly and produce output, it should invoke th
 
 **Removing volumes:** If you want to remove a volume from the original design, pass the `id` of the existing volume with no shape or cut data
 
+# Example Apps
+
+Some [example apps](https://github.com/inventables/easel-example-apps) can be found on github.
+
+# Helper Files
+
+We are working on extending the API to add several useful helper functions to support things like bounding boxes, clipping volumes against each other, and converting from SVG to volume objects. In the mean time, some of these functions can be accessed by adding thef iles in the following gist as app dependencies:
+
+- [Helper gist](https://gist.github.com/nevernormal1/b69139572185d7a2ef2dd6d6a3ea1a23)
+
