@@ -218,7 +218,13 @@ If your app is able to function properly and produce output, it should invoke th
 
 # Example Apps
 
-Some [example apps](https://github.com/inventables/easel-example-apps) can be found on github.
+## Real Apps Using API version 2.0:
+
+- [Puzzle Designer](https://github.com/inventables/easel-puzzle-generator)
+
+## Play Apps
+
+Some [play apps](https://github.com/inventables/easel-example-apps) can be found on github.
 
 # Helper Files
 
