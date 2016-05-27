@@ -95,10 +95,11 @@ The `args` parameter is an object structured as follows:
         id: String // Identifier for the bit
         width: Number // Width of the bit
         unit: String ("mm" or "in") // Units the width is expressed in
-      detailBit:   // Not present if only using 1 bit
+      detailBit:
         id: String // Identifier for the detail bit
         width: Number // Width of the detail bit
         unit: String ("mm" or "in") // Units the width is expressed in
+      useDetailBit: boolean // Whether or not a detail bit is being used
 ```
 
 
