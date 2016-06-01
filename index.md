@@ -216,7 +216,7 @@ If your app is able to function properly and produce output, it should invoke th
 
 **Removing volumes:** If you want to remove a volume from the original design, pass the `id` of the existing volume with no shape or cut data
 
-# Example Apps
+# <a name="example-apps"></a> Example Apps
 
 ## Real Apps Using API version 2.0:
 
@@ -226,7 +226,7 @@ If your app is able to function properly and produce output, it should invoke th
 
 Some [play apps](https://github.com/inventables/easel-example-apps) can be found on github.
 
-# Helper Files
+# <a name="helper-files"></a> Helper Files
 
 We are working on extending the API to add several useful helper functions to support things like bounding boxes, clipping volumes against each other, and converting from SVG to volume objects. In the mean time, some of these functions can be accessed by adding thef iles in the following gist as app dependencies:
 
