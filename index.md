@@ -22,12 +22,14 @@ Your app will send `volume` objects back to Easel, telling Easel what objects to
 
 Every Easel app is a single javascript file that must export the following:
 
-- A `properties` array
+- A `properties` function or array
 - An `executor` function
 
 ## <a name="properties"></a> Properties
 
-When your app is first launched by the user, Easel will invoke it and look for the `properties` array that must be exposed. This array defines the properties that the user may manipulate when using your app. Each element in the array must be an object with the following attributes:
+When your app is first launched by the user, Easel will invoke it and inspect the `properties` object that must be exposed. If the `properties` object is a function, Easel will immediately invoke that function, passing the [general project settings](#general-project-settings) that it also provides for the `executor` function. Your app can use these settings to decide at run-time what properties to make available to the user (e.g.: whether to use metric or imperial units). The function must return its properties as an array. Alternatively, your app may short circuit this process by defining the `properties` object statically as an array if the properties do not depend on any of the project settings.
+
+The array that you ultimately provide back to Easel defines the properties that the user may manipulate when using your app. Each element in the array must be an object with the following attributes:
 
 ```
 id: String   // Doubles as an identifier and the label to show next to the property
@@ -75,35 +77,37 @@ Whenever the user changes the value of a property, Easel will invoke your app's 
 
 `function executor(args, success, failure)`
 
-The `args` parameter is an object structured as follows:
+The `args` parameter contains the general project settings properties, plus a `params` attribute that holds an object containing the user-defined properties that your app makes available.
+
+
+### <a name="general-project-settings"></a> General Project Settings
 
 
 ```
-  args:
-    params: Object // The user-defined parameters your app exposes, see below
-    volumes: Array // The objects defined in the design, ordered from back to front (see below for more)
-    selectedVolumeIds: Array // String ids of volumes currently selected in the design
-    material:
-      name: String // Name of active material
-      textureUrl: String // URL of material thumbnail image
-      dimensions:
-        x: number // Width of material in inches
-        y: number // Length of material in inches
-        z: number // Height of material in inches
-    bitParams:
-      bit:
-        id: String // Identifier for the bit
-        width: Number // Width of the bit
-        unit: String ("mm" or "in") // Units the width is expressed in
-      detailBit:
-        id: String // Identifier for the detail bit
-        width: Number // Width of the detail bit
-        unit: String ("mm" or "in") // Units the width is expressed in
-      useDetailBit: boolean // Whether or not a detail bit is being used
+  volumes: Array // The objects defined in the design, ordered from back to front (see below for more)
+  preferredUnit: String // The preferred unit of measure, either "mm" or "in"
+  selectedVolumeIds: Array // String ids of volumes currently selected in the design
+  material:
+    name: String // Name of active material
+    textureUrl: String // URL of material thumbnail image
+    dimensions:
+      x: number // Width of material in inches
+      y: number // Length of material in inches
+      z: number // Height of material in inches
+  bitParams:
+    bit:
+      id: String // Identifier for the bit
+      width: Number // Width of the bit
+      unit: String ("mm" or "in") // Units the width is expressed in
+    detailBit:
+      id: String // Identifier for the detail bit
+      width: Number // Width of the detail bit
+      unit: String ("mm" or "in") // Units the width is expressed in
+    useDetailBit: boolean // Whether or not a detail bit is being used
 ```
 
 
-The `params` object will have a shape matching the properties that your app gives the user to manipulate. For example, if you make two Number properties named `Width` and `Height` available, then you would receive a params object like this:
+The `args` parameter will also include a `params` object will have a shape matching the properties that your app gives the user to manipulate. For example, if you make two Number properties named `Width` and `Height` available, then you would receive a params object like this:
 
 ```
 params:
