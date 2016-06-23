@@ -2,6 +2,8 @@
 layout: default
 ---
 
+The Easel API is currently in early access. If you are a developer, we'd love your help to make it better. [Apply for early access](http://goo.gl/forms/8RoPg8TfZ2) through our google form.
+
 # <a name="overview"></a> Overview
 
 At a high level, apps make it easier for users to make things. They do this by providing `properties` (e.g., sliders, input boxes, dropdowns) that the user may manipulate. Each time the user changes one of these `properties`, your app's `executor` function will be invoked. Easel will provide the new values of all the properties, along with several other data elements representing the context of the user's project. Your app will use this data to create new design objects, or to modify existing ones.
