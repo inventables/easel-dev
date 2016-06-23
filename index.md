@@ -216,7 +216,7 @@ Easel passes 2 additional arguments to your app: a `success` callback and a `fai
 
 If your app is able to function properly and produce output, it should invoke the `success` callback, passing an array of volumes having the same structure as above. The only wrinkle is with handling the update model--whether you want to add, replace, or remove volumes from the existing design.
 
-**Adding volumes:** If you want to add new volumes to the design, leave the "id" field of the volumes blank in your response
+**Adding volumes:** If you want to add new volumes to the design, leave the `id` field of the volumes blank in your response
 
 **Replacing volumes:** If you want to replace a volume in the original design, pass the `id` of the existing volume with its new data
 
@@ -234,7 +234,7 @@ Some [play apps](https://github.com/inventables/easel-example-apps) can be found
 
 # <a name="helper-files"></a> Helper Files
 
-We are working on extending the API to add several useful helper functions to support things like bounding boxes, clipping volumes against each other, and converting from SVG to volume objects. In the mean time, some of these functions can be accessed by adding thef iles in the following gist as app dependencies:
+We are working on extending the API to add several useful helper functions to support things like bounding boxes, clipping volumes against each other, and converting from SVG to volume objects. In the mean time, some of these functions can be accessed by adding the files in the following gist as app dependencies:
 
 - [Helper gist](https://gist.github.com/nevernormal1/b69139572185d7a2ef2dd6d6a3ea1a23)
 
