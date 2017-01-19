@@ -131,8 +131,8 @@ Properties that are shared across all volumes **except `lines`** are:
       shape:
         type: String // "rectangle", "ellipse", "polygon", "path", "polyline", "line"
         flipping:
-          x: Boolean // True if the shape is "flipped" horizontally
-          y: Boolean // True if the shape is "flipped" vertically
+          horizontal: Boolean // True if the shape is "flipped" horizontally
+          vertical: Boolean // True if the shape is "flipped" vertically
         center: // Most shapes (except Lines) have a center
           x: Number // Absolute horizontal position in inches of the shape's center, relative to the zero point
           y: Number // Absolute vertical position in inches of the shape's center, relative to the zero point
