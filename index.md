@@ -129,7 +129,7 @@ Properties that are shared across all volumes **except `lines`** are:
 
     volume:
       shape:
-        type: String // "rectangle", "ellipse", "polygon", "path", "polyline", "line"
+        type: String // "rectangle", "ellipse", "polygon", "path", "polyline", "line", "drill"
         flipping:
           horizontal: Boolean // True if the shape is "flipped" horizontally
           vertical: Boolean // True if the shape is "flipped" vertically
@@ -141,8 +141,8 @@ Properties that are shared across all volumes **except `lines`** are:
         rotation: Number // Amount of counter-clockwise rotation in radians
       cut:
         depth: Number // Depth of cut for this shape in inches
-        type: String ('outline' or 'fill') // Type of cut
-        outlineStyle: String ('on-path', 'outside', 'inside') // Outline style, if outline cut
+        type: String // Type of cut - "outline", "fill", "drill"
+        outlineStyle: String // Outline style, if outline cut - "on-path", "outside", "inside"
         tabPreference: Boolean // Whether the user wants to use tabs, if cut-through outline cut
         tabHeight: Number // Height (from bottom of material) of tabs in inches
         tabLength: Number // Length of tabs in inches
