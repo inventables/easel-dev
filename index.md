@@ -236,6 +236,6 @@ Some [play apps](https://github.com/inventables/easel-example-apps) can be found
 
 # <a name="helper-files"></a> Helper Files
 
-We are working on extending the API to add several useful helper functions to support things like bounding boxes, clipping volumes against each other, and converting from SVG to volume objects. In the mean time, some of these functions can be accessed by adding the files in the following gist as app dependencies:
+We are working on extending the API to add several useful helper functions to support things like bounding boxes, clipping volumes against each other, and converting from SVG to volume objects. In the mean time, some of these functions can be accessed by adding the files from the following repository as app dependencies:
 
-- [Helper gist](https://gist.github.com/nevernormal1/b69139572185d7a2ef2dd6d6a3ea1a23)
+- [App framework helpers](https://github.com/inventables/easel-app-framework-helpers)
