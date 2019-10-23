@@ -192,6 +192,13 @@ Where each point in the array has the following shape:
 
 Points will have handles if the path curves around them (on one side or the other). The handles represent the (relative) locations of bezier control points. In the v2 apps API, Easel provides functions to map from an Easel path to an SVG path.
 
+**Drill**
+```
+shape:
+	type: "drill"
+```
+
+
 **Text**
 
 ```
@@ -209,6 +216,8 @@ point2:
   x: Number
   y: Number
 ```
+
+A full example per shape click [here](https://github.com/inventables/easel-dev/).
 
 # <a name="responses"></a> Responses
 
