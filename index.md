@@ -2,7 +2,7 @@
 layout: default
 ---
 
-The Easel API is currently in early access. If you are a developer, we'd love your help to make it better. [Apply for early access](http://goo.gl/forms/8RoPg8TfZ2) through our google form.
+The Easel API is currently on hiatus. We are not currently accepting early access applications.
 
 # <a name="overview"></a> Overview
 
